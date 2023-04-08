@@ -24,6 +24,10 @@ st.dataframe(fruits_to_show)
 
 st.header("Fruityvice Fruit Advice!")
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-st.text(fruityvice_response.json())
+# st.text(fruityvice_response.json())
 
+# Transform json format into pandas dataframe
+fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+# Show the dataframe on the streamlit app
+st.dataframe(fruityvice_normalized)
 
