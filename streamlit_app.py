@@ -66,7 +66,7 @@ def insert_snowflake_row(new_fruit):
 st.header("The fruit load list contains:")
 if st.button('Get Fruit Load List'):
    my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
-   my_data_rows = insert_snowflake_row()
+   my_data_rows = get_fruit_load_list()
    st.dataframe(my_data_rows)
 
 # Allow user to add a fruit to the list
