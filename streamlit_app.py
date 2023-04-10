@@ -40,7 +40,7 @@ st.dataframe(fruityvice_normalized)
 #Querying my Snowflake metadata
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 my_cur = my_cnx.cursor()
-my_cur.execute("show databases")
+my_cur.execute("show tables")
 my_data_rows = my_cur.fetchall()
 st.header("The fruit load list contains:")
 st.dataframe(my_data_rows)
