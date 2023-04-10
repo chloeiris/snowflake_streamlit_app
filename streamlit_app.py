@@ -26,16 +26,25 @@ st.dataframe(fruits_to_show)
 
 st.header("Fruityvice Fruit Advice!")
 
-fruit_choice = st.text_input('What fruit would you like information about?','Kiwi')
-st.write('The user entered ', fruit_choice)
+try:
+  fruit_choice = st.text_input('What fruit would you like information about?')
+  if not fruit_choice:
+    st.error("Please select a fruit to get information.")
+  else:
+    # Request info from API
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+    # Transform json format into pandas dataframe
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    # Show the dataframe on the streamlit app
+    st.dataframe(fruityvice_normalized)
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
+except URLError as e:
+  st.error()
 
 
-# Transform json format into pandas dataframe
-fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
-# Show the dataframe on the streamlit app
-st.dataframe(fruityvice_normalized)
+
+
+
 
 
 # Querying my Snowflake metadata
