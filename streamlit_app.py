@@ -39,7 +39,7 @@ try:
     st.dataframe(fruityvice_normalized)
 
 except URLError as e:
-  st.error()
+  st.error('urlerror')
 
 
 
