@@ -56,21 +56,22 @@ def get_fruit_load_list():
    with my_cnx.cursor() as my_cur:
       my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
       return my_cur.fetchall()
+   
 def insert_snowflake_row(new_fruit):
    with my_cnx.cursor() as my_cur:
       my_cur.execute(f"insert into fruit_load_list values ({new_fruit})")
       return 'Thanks for adding ', new_fruit, '!'
    
-# Show the list of fruits we have in a snowflake table
+# Add a button to show the list of fruits we have in a snowflake table
 st.header("The fruit load list contains:")
 if st.button('Get Fruit Load List'):
    my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
-   new_fruit_list = insert_snowflake_row()
+   my_data_rows = insert_snowflake_row()
    st.dataframe(my_data_rows)
 
 # Allow user to add a fruit to the list
 add_fruit = st.text_input('What fruit would you like to add?')
-if st.button('Add a fruit to the list'):
+if st.button('Add a Fruit to the List'):
    my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
    result_from_function = insert_snowflake_row(add_fruit)
    st.text(result_from_function)
