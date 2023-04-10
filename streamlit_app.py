@@ -63,10 +63,11 @@ def insert_snowflake_row(new_fruit):
       return f'Thanks for adding {new_fruit}!'
    
 # Add a button to show the list of fruits we have in a snowflake table
-st.header("The fruit load list contains:")
-if st.button('Get Fruit Load List'):
+st.header("View Our Fruit List - Add Your Favorites!")
+if st.button('Get Fruit List'):
    my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
    my_data_rows = get_fruit_load_list()
+   my_cnx.close()
    st.dataframe(my_data_rows)
 
 # Allow user to add a fruit to the list
@@ -74,6 +75,7 @@ add_fruit = st.text_input('What fruit would you like to add?')
 if st.button('Add a Fruit to the List'):
    my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
    result_from_function = insert_snowflake_row(add_fruit)
+   my_cnx.close()
    st.text(result_from_function)
 
 
