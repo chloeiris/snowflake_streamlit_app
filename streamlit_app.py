@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import requests
 import snowflake.connector
+from urllib.error import URLError
 
 st.title("The Healthfood Diner")
 
@@ -38,6 +39,7 @@ st.dataframe(fruityvice_normalized)
 
 
 # Querying my Snowflake metadata
+st.stop()
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 my_cur = my_cnx.cursor()
 my_cur.execute("insert into fruit_load_list values ('fromStreamlit')")
